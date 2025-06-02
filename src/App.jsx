@@ -8,11 +8,14 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [option, setOption] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState(movies);
+
   useEffect(() => {
-    const selectedGenre = movies.filter((currentMovie) => {
-      return currentMovie.genre === option;
-    });
-    console.log(selectedGenre);
+    setSelectedGenre(
+      movies.filter((currentMovie) => {
+        return option === "" || currentMovie.genre === option;
+      })
+    );
   }, [option]);
   return (
     <>
@@ -45,7 +48,7 @@ export default function App() {
           })}
         </select>
 
-        {movies.map(function (currentMovie, index) {
+        {selectedGenre.map(function (currentMovie, index) {
           return (
             <div className="card text-center" key={index}>
               <div className="card-body">
