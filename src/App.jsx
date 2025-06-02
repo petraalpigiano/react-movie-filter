@@ -4,10 +4,16 @@
 // Il filtro deve funzionare dinamicamente quando l'utente seleziona un genere dalla select.
 // Se non viene selezionato alcun genere, devono essere mostrati tutti i film.
 import movies from "./data/movies";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App() {
   const [option, setOption] = useState("");
+  useEffect(() => {
+    const selectedGenre = movies.filter((currentMovie) => {
+      return currentMovie.genre === option;
+    });
+    console.log(selectedGenre);
+  }, [option]);
   return (
     <>
       <div className="container">
@@ -27,6 +33,7 @@ export default function App() {
                 {currentMovie.genre}
               </option>
             );
+
             // FILTRO PER NON AVERE GENERI DUPLICATI
             // return (
             //  // !array.includes(currentMovie.genre) && (
@@ -37,6 +44,7 @@ export default function App() {
             // );
           })}
         </select>
+
         {movies.map(function (currentMovie, index) {
           return (
             <div className="card text-center" key={index}>
